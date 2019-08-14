@@ -8,5 +8,9 @@ namespace HelloWorld
         {
             return "Happy coding!";
         }
+
+		public int square(int x ){
+			return x*x;
+		}
     }
 }
