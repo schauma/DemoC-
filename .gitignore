@@ -2,3 +2,5 @@
 .vcode/*
 !bin/
 bin/*
+!obj/
+obj/*
