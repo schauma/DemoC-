@@ -5,7 +5,6 @@ public struct rcv_vector<T>
 
 	private List<T> values
 	{
-
 		get
 		{
 			return this.values;
@@ -14,11 +13,9 @@ public struct rcv_vector<T>
 		{
 			this.values = value;
 		}
-
 	}
 	private List<int> rowIdx
 	{
-
 		get
 		{
 			return this.rowIdx;
@@ -27,11 +24,9 @@ public struct rcv_vector<T>
 		{
 			this.rowIdx = value;
 		}
-
 	}
 	private List<int> colIdx
 	{
-
 		get
 		{
 			return this.colIdx;
@@ -40,11 +35,9 @@ public struct rcv_vector<T>
 		{
 			this.colIdx = value;
 		}
-
 	}
 	private int size
 	{
-
 		get
 		{
 			return this.size;
@@ -53,8 +46,8 @@ public struct rcv_vector<T>
 		{
 			this.size = value;
 		}
-
 	}
+
 	public rcv_vector(int size_, List<T> data, List<int> rows, List<int> cols)
 	{
 		this.values = data;
@@ -93,6 +86,13 @@ public struct rcv_vector<T>
 		}
 		return a;
 
+	}
+	public rc_vector<T> convertToRCVector(){
+		rc_vector<T> rc_ = new rc_vector<T>();
+		rc_.size=this.getSize();
+		rc_.rowIdx = this.rowIdx;
+		rc_.colIdx = this.colIdx;
+		return rc_;
 	}
 
 	public T getItem(int idx)
