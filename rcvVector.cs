@@ -2,50 +2,29 @@ using System;
 using System.Collections.Generic;
 public struct rcv_vector<T>
 {
-
-	private List<T> values
+	private List<T> values;
+	private List<int> rowIdx;
+	private List<int> colIdx;
+	private int size;
+	public List<T> Values
 	{
-		get
-		{
-			return this.values;
-		}
-		set
-		{
-			this.values = value;
-		}
+		get	{ return values;}
+		set	{ values = value;}
 	}
-	private List<int> rowIdx
+	public List<int> RowIdx
 	{
-		get
-		{
-			return this.rowIdx;
-		}
-		set
-		{
-			this.rowIdx = value;
-		}
+		get { return rowIdx;}
+		set	{ rowIdx = value;}
 	}
-	private List<int> colIdx
+	public List<int> ColIdx
 	{
-		get
-		{
-			return this.colIdx;
-		}
-		set
-		{
-			this.colIdx = value;
-		}
+		get { return this.colIdx;}
+		set	{ colIdx = value;}
 	}
-	private int size
+	public int Size
 	{
-		get
-		{
-			return this.size;
-		}
-		set
-		{
-			this.size = value;
-		}
+		get	{ return this.size;}
+		set	{ this.size = value;}
 	}
 
 	public rcv_vector(int size_, List<T> data, List<int> rows, List<int> cols)
@@ -57,17 +36,17 @@ public struct rcv_vector<T>
 	}
 	public rcv_vector(rcv_vector<T> init)
 	{
-		this.values = init.values;
-		this.colIdx = init.colIdx;
-		this.rowIdx = init.rowIdx;
-		this.size = init.size;
+		this.values = init.Values;
+		this.colIdx = init.ColIdx;
+		this.rowIdx = init.RowIdx;
+		this.size = init.Size;
 	}
 	public rcv_vector<T> append(int row_, int col_, T item)
 	{
-		this.colIdx.Add(col_);
-		this.rowIdx.Add(row_);
-		this.values.Add(item);
-		size++;
+		this.ColIdx.Add(col_);
+		this.RowIdx.Add(row_);
+		this.Values.Add(item);
+		Size++;
 		return this;
 	}
 	public rcv_vector<T> add(rcv_vector<T> b)
@@ -82,22 +61,22 @@ public struct rcv_vector<T>
 	{
 		for (int i = 0; i < b.size; i++)
 		{
-			a.append(b.rowIdx[i], b.colIdx[i], b.values[i]);
+			a.append(b.RowIdx[i], b.ColIdx[i], b.Values[i]);
 		}
 		return a;
 
 	}
 	public rc_vector<T> convertToRCVector(){
-		rc_vector<T> rc_ = new rc_vector<T>();
-		rc_.size=this.getSize();
-		rc_.rowIdx = this.rowIdx;
-		rc_.colIdx = this.colIdx;
-		return rc_;
+		rc_vector<T> rc = new rc_vector<T>(this.Size,this.RowIdx,this.ColIdx);
+		rc.Size=this.getSize();
+		rc.RowIdx = this.RowIdx;
+		rc.ColIdx = this.ColIdx;
+		return rc;
 	}
 
 	public T getItem(int idx)
 	{
-		return this.values[idx];
+		return this.Values[idx];
 	}
 	public int getRow(int idx)
 	{
@@ -108,6 +87,6 @@ public struct rcv_vector<T>
 		return this.colIdx[idx];
 	}
 	public int getSize(){
-		return this.size;
+		return this.Size;
 	}
 }

@@ -1,44 +1,34 @@
 using System;
 using System.Collections.Generic;
-public struct rc_vector<T>
+public class rc_vector<T>
 {
-	public List<int> rowIdx
+	private List<int> rowIdx;
+	private List<int> colIdx;
+	private int size;
+	public List<int> RowIdx
 	{
-		get
-		{
-			return this.rowIdx;
-		}
-		set
-		{
-			this.rowIdx = value;
-		}
+		get { return rowIdx; }
+		set	{ rowIdx = value; }
 	}
-	public List<int> colIdx
+	public List<int> ColIdx
 	{
-		get
-		{
-			return this.colIdx;
-		}
-		set
-		{
-			this.colIdx = value;
-		}
+		get { return colIdx; }
+		set	{ colIdx = value; }
 	}
-	public int size
+	public int Size
 	{
-		get
-		{
-			return this.size;
-		}
-		set
-		{
-			this.size = value;
-		}
+		get { return size; }
+		set	{ size = value;}
 	}
-	public rc_vector(int size_,  List<int> rows, List<int> cols)
+	public rc_vector(){
+		this.size=0;
+		this.rowIdx=new List<int>();
+		this.colIdx=new List<int>();
+	}
+	public rc_vector(int size_,  List<int> rows_, List<int> cols_)
 	{
-		this.rowIdx = rows;
-		this.colIdx = cols;
+		this.rowIdx = rows_;
+		this.colIdx = cols_;
 		this.size = size_;
 	}
 	public rc_vector(rc_vector<T> init)
@@ -49,8 +39,8 @@ public struct rc_vector<T>
 	}
 	public rc_vector<T> append(int row_, int col_)
 	{
-		this.colIdx.Add(col_);
-		this.rowIdx.Add(row_);
+		this.ColIdx.Add(col_);
+		this.RowIdx.Add(row_);
 		size++;
 		return this;
 	}
@@ -72,8 +62,26 @@ public struct rc_vector<T>
 
 	}
 	public rc_vector<T> difference(rc_vector<T> subtrahend){
+		List<int> colCandidates=new List<int>();
+		for(int i =0;i<subtrahend.size;i++){
+			colCandidates= new List<int>();
+			colCandidates=this.colIdx.FindAll(s=>FindMatchingIndexPred<int>(s,i));
+			List<int> rowCandidates = new List<int>();
+			for(int j=0;j<subtrahend.Size;j++){
+				rowCandidates= colCandidates.FindAll(s =>FindMatchingIndexPred<int>(s,j));
+				//find the indices of these.
+			}	
+		}
+		foreach (int i in colCandidates)
+            {
+                Console.WriteLine(i);
+            }
 		return new rc_vector<T>();
 	}
+	private static bool FindMatchingIndexPred<M>(M item,M index){
+			return (item.Equals(index));
+	}
+
 	public int getRow(int idx)
 	{
 		return this.rowIdx[idx];
